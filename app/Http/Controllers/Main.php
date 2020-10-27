@@ -9,7 +9,7 @@ class Main extends Controller
     //===================================================
     public function index()
     {
-        // Verifica se o usuário está logado
+        // Verifica se o usuário está logado.
         if (session()->has('usuario')) {
             echo 'Logado';
         } else {
@@ -20,6 +20,13 @@ class Main extends Controller
     //===================================================
     public function login()
     {
-        echo 'Fomulário de login';
+        // Apresenta o formulário de login.
+        return view('login');
+    }
+
+    //===================================================
+    public function login_submit(Request $request)
+    {
+        echo 'Submetido';
     }
 }
