@@ -17,5 +17,3 @@ Route::get('/', 'main@index')->name('index');
 Route::get('/login', 'main@login')->name('login');
 Route::post('/login_submit', 'main@login_submit')->name('login_submit');
  
-
-Route::get('/temp', 'main@temp');
