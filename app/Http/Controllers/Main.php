@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
@@ -27,10 +28,10 @@ class Main extends Controller
     }
 
     //===================================================
-    public function login_submit(Request $request)
+    public function login_submit(LoginRequest $request)
     {
         // Validação
-
+        $request->validated();
 
         // Verificar dados de login
         $usuario = trim($request->input('text_usuario'));
@@ -45,15 +46,15 @@ class Main extends Controller
         }
 
         // Verificar se a senha está correta
-        if (Hash::check($senha, $usuario->senha)) {
+        if (!Hash::check($senha, $usuario->senha)) {
             echo 'OK';
-        } else {
-            echo 'NOK';
+            return;
         }
 
 
 
         // Criar sessão ( se login ok )
+        echo 'SESSÃO';
     }
 
     //===================================================
