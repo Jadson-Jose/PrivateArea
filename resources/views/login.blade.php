@@ -30,6 +30,7 @@
                 </form>
                 {{-- /form --}}
 
+                {{-- erros de validação --}}
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -40,6 +41,10 @@
                     </div>
                 @endif
 
+                {{-- erros de login --}}
+                @if (isset($erro))
+                    <div class="alert alert-danger text-center">{{ $erro }}</div>
+                @endif
             </div>
         </div>
     </div>

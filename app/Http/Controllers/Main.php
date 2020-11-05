@@ -24,7 +24,16 @@ class Main extends Controller
     public function login()
     {
         // Apresenta o formulário de login.
-        return view('login');
+
+        $erro = session('erro');
+        $data = [];
+        if (!empty($erro)) {
+            $data = [
+                'erro' => $erro
+            ];
+        }
+
+        return view('login', $data);
     }
 
     //===================================================
@@ -41,8 +50,8 @@ class Main extends Controller
 
         // Verifica se existe o usuario
         if (!$usuario) {
-            echo 'ERRO';
-            return;
+            session()->flash('erro', 'Não existe o usuário');
+            return redirect()->route('login');
         }
 
         // Verificar se a senha está correta
