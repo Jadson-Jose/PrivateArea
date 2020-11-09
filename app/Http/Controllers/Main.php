@@ -13,7 +13,7 @@ class Main extends Controller
     public function index()
     {
         // Verifica se o usuário está logado.
-        if (session()->has('usuario')) {
+        if ($this->checkSession()) {
             echo 'Logado';
         } else {
             return redirect()->route('login');
@@ -21,10 +21,23 @@ class Main extends Controller
     }
 
     //===================================================
+    private function checkSession()
+    {
+        return redirect()->has('usuario');
+    }
+
+    //===================================================
     public function login()
     {
-        // Apresenta o formulário de login.
 
+        // Verifica se já existe sessão
+        if ($this->checkSession()) {
+            return redirect()->route('index');
+        }
+
+
+
+        // Apresenta o formulário de login.
         $erro = session('erro');
         $data = [];
         if (!empty($erro)) {
@@ -39,6 +52,18 @@ class Main extends Controller
     //===================================================
     public function login_submit(LoginRequest $request)
     {
+
+        // Verifica se houve submissão de formulário
+        if (!$request->isMethod('post')) {
+            return redirect()->route('index');
+        }
+
+        // Verifica se já existe sessão
+        if ($this->checkSession()) {
+            return redirect()->route('index');
+        }
+
+
         // Validação
         $request->validated();
 
@@ -56,14 +81,15 @@ class Main extends Controller
 
         // Verificar se a senha está correta
         if (!Hash::check($senha, $usuario->senha)) {
-            echo 'OK';
-            return;
+            session()->flash('erro', 'Senha inválida.');
+            return redirect()->route('login');
         }
 
 
 
         // Criar sessão ( se login ok )
-        echo 'SESSÃO';
+        session()->put('usuario', $usuario);
+        return redirect()->route('index');
     }
 
     //===================================================
