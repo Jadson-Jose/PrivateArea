@@ -14,7 +14,7 @@ class Main extends Controller
     {
         // Verifica se o usuário está logado.
         if ($this->checkSession()) {
-            echo 'Logado';
+            return redirect()->route('home');
         } else {
             return redirect()->route('login');
         }
@@ -23,7 +23,7 @@ class Main extends Controller
     //===================================================
     private function checkSession()
     {
-        return redirect()->has('usuario');
+        return session()->has('usuario');
     }
 
     //===================================================
@@ -93,5 +93,14 @@ class Main extends Controller
     }
 
     //===================================================
+    // HOME (entrada da aplicação)
+    //===================================================
+    public function home()
+    {
+        if (!$this->checkSession()) {
+            return redirect()->route('login');
+        }
 
+        echo 'Ola aplicação';
+    }
 }
