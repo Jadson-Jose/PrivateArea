@@ -18,3 +18,4 @@ Route::get('/login', 'main@login')->name('login');
 Route::post('/login_submit', 'main@login_submit')->name('login_submit');
 
 Route::get('/home', 'main@home')->name('home');
+Route::get('/logout', 'main@logout')->name('logout');

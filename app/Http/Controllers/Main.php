@@ -93,6 +93,13 @@ class Main extends Controller
     }
 
     //===================================================
+    public function logout()
+    {
+        session()->forget('usuario');
+        return redirect()->route('index');
+    }
+
+    //===================================================
     // HOME (entrada da aplicação)
     //===================================================
     public function home()
@@ -101,6 +108,6 @@ class Main extends Controller
             return redirect()->route('login');
         }
 
-        echo 'Ola aplicação';
+        return view('home');
     }
 }
