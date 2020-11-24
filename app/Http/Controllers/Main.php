@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Random;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
@@ -9,6 +10,14 @@ use Illuminate\Support\Facades\Hash;
 
 class Main extends Controller
 {
+
+    private $R;
+
+    public function __construct()
+    {
+        $this->R = new Random;
+    }
+
     //===================================================
     public function index()
     {
@@ -108,6 +117,9 @@ class Main extends Controller
             return redirect()->route('login');
         }
 
-        return view('home');
+        $data = [
+            'smstoken' => $this->R->SMSToken()
+        ];
+        return view('home', $data);
     }
 }

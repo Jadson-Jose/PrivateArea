@@ -2,8 +2,7 @@
 
 @section('conteudo')
     <div>
-        <h3>
-            Conteúdo da aplicação
-        </h3>
+        <h3>Conteúdo da aplicação</h3>
+        <p>SMS TOKEN: <strong>{{ $smstoken }}</strong></p>
     </div>
 @endsection
