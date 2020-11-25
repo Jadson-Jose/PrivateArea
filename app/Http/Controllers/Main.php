@@ -128,8 +128,14 @@ class Main extends Controller
     //===================================================
     public function edit($id_usuario)
     {
-        $id_usuario = $this->Enc->encriptar($id_usuario); 
-        
-        echo "Vou editar os dados do usuário $id_usuario";
+        $id_usuario = $this->Enc->encriptar($id_usuario);
+
+        echo "Vou editar os dados do usuário: $id_usuario";
+    }
+
+    public function final($hash)
+    {
+        $hash = $this->Enc->desencriptar($hash);
+        echo 'valor: ' . $hash;
     }
 }

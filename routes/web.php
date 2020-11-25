@@ -22,3 +22,4 @@ Route::get('/home', 'main@home')->name('home');
 Route::get('/logout', 'main@logout')->name('logout');
 
 Route::get('/edit/{id_usuario}', 'main@edit')->name('main_edit');
+Route::get('/final/{hash}', 'main@final')->name('main_final');
