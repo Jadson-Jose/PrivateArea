@@ -135,7 +135,7 @@ class Main extends Controller
 
     public function final($hash)
     {
-        $hash = $this->Enc->desencriptar($hash);
+        $hash = $this->Enc->desencriptar($hash); 
         echo 'valor: ' . $hash;
     }
 }
