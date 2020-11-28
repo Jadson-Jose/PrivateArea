@@ -119,8 +119,9 @@ class Main extends Controller
         }
 
         $data = [
-            'smstoken' => $this->R->SMSToken()
+            'usuarios' => Usuario::all()
         ];
+
         return view('home', $data);
     }
 
@@ -128,14 +129,8 @@ class Main extends Controller
     //===================================================
     public function edit($id_usuario)
     {
-        $id_usuario = $this->Enc->encriptar($id_usuario);
+        $id_usuario = $this->Enc->desencriptar($id_usuario);
 
-        echo "Vou editar os dados do usuário: $id_usuario";
-    }
-
-    public function final($hash)
-    {
-        $hash = $this->Enc->desencriptar($hash); 
-        echo 'valor: ' . $hash;
+        echo 'O usuario a editar é: ' . $id_usuario;
     }
 }
