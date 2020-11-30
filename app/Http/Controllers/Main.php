@@ -8,6 +8,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class Main extends Controller
 {
@@ -99,6 +100,10 @@ class Main extends Controller
 
         // Criar sessão ( se login ok )
         session()->put('usuario', $usuario);
+
+        //log
+        Log::channel('main')->info('Houve um login.');
+
         return redirect()->route('index');
     }
 
@@ -106,6 +111,7 @@ class Main extends Controller
     public function logout()
     {
         session()->forget('usuario');
+        Log::channel('main')->info('Houve um logout.');
         return redirect()->route('index');
     }
 
@@ -129,9 +135,8 @@ class Main extends Controller
     //===================================================
     public function edit($id_usuario)
     {
-        $id_usuario = $this->Enc->desencriptar($id_usuario );
+        $id_usuario = $this->Enc->desencriptar($id_usuario);
 
         echo 'O usuario a editar é: ' . $id_usuario;
     }
 }
-   
