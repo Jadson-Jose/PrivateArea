@@ -129,8 +129,9 @@ class Main extends Controller
     //===================================================
     public function edit($id_usuario)
     {
-        $id_usuario = $this->Enc->desencriptar($id_usuario);
+        $id_usuario = $this->Enc->desencriptar($id_usuario );
 
         echo 'O usuario a editar é: ' . $id_usuario;
     }
 }
+   
