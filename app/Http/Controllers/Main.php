@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Enc;
+use App\Classes\Logger;
 use App\Classes\Random;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
@@ -14,10 +15,12 @@ class Main extends Controller
 {
 
     private $Enc;
+    private $Logger;
 
     public function __construct()
     {
         $this->Enc = new Enc();
+        $this->Logger = new Logger();
     }
 
     //===================================================
@@ -86,12 +89,20 @@ class Main extends Controller
 
         // Verifica se existe o usuario
         if (!$usuario) {
+
+            // Logger
+            $this->Logger->log('error', trim($request->input('text_usuario')) . ' - Não existe o usuário indicado');
+
             session()->flash('erro', 'Não existe o usuário');
             return redirect()->route('login');
         }
 
         // Verificar se a senha está correta
         if (!Hash::check($senha, $usuario->senha)) {
+
+            // Logger
+            $this->Logger->log('error', trim($request->input('text_usuario')) . ' - Senha inválida.');
+
             session()->flash('erro', 'Senha inválida.');
             return redirect()->route('login');
         }
@@ -101,8 +112,8 @@ class Main extends Controller
         // Criar sessão ( se login ok )
         session()->put('usuario', $usuario);
 
-        //log
-        Log::channel('main')->info('Houve um login.');
+        //logger
+        $this->Logger->log('info', 'Fez o seu login.');
 
         return redirect()->route('index');
     }
@@ -110,8 +121,10 @@ class Main extends Controller
     //===================================================
     public function logout()
     {
+        // Logger
+        $this->Logger->log('info', 'Fez o seu logout.');
+
         session()->forget('usuario');
-        Log::channel('main')->info('Houve um logout.');
         return redirect()->route('index');
     }
 
