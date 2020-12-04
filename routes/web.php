@@ -27,3 +27,6 @@ Route::get('/final/{hash}', 'main@final')->name('main_final');
 Route::get('/edit/{id_usuario}', 'main@edit')->name('main_edit');
 
 Route::post('/upload', 'main@upload')->name('main_upload');
+
+Route::get('/lista_arquivos', 'main@lista_arquivos')->name('main_lista_arquivos');
+Route::get('/download/{file}', 'main@download')->name('main_download');
