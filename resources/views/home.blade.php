@@ -15,9 +15,18 @@ $enc = new App\Classes\Enc();
             @foreach ($usuarios as $user)
 
                 <li> <a href="{{ route('main_edit', ['id_usuario' => $enc->encriptar($user->id)]) }}">EDIT</a>
-                    {{ $user->usuario }}</li>
+                    {{ $user->usuario }}
+                </li>
             @endforeach
         </ul>
+    </div>
 
+    <div>
+        <h3>Upload de arquivos</h3>
+        <form action="{{ route('main_upload') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="arquivo">
+            <input type="submit" value="Enviar">
+        </form>
     </div>
 @endsection
