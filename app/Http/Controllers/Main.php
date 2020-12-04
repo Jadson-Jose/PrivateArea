@@ -156,7 +156,25 @@ class Main extends Controller
     //===================================================
     public function upload(Request $request)
     {
-        $request->arquivo->storeAs('public/images', 'novo.jpg');
+
+        // Validação do upload
+        $validate = $request->validate(
+            // Regras
+            [
+                'arquivo' => 'required|image|mimes:jpg|max:12|dimensions:min_width=10,max_height=10,max_width=1000,max_height=500'
+            ],
+            // mensagem de erros
+            [
+                'arquivo.required' => 'A imagem é obrigatória',
+                'arquivo.image' => 'O arquivo tem que ser uma imagem',
+                'arquivo.mimes' => 'A imgaem tem que ser em formato jpg',
+                'arquivo.max' => 'A imagem deve conter no máximo 12 kb',
+                'arquivo.dimensions' => 'Tamanho inválido (1000x500 max)'
+            ]
+        );
+
+
+        // $request->arquivo->storeAs('public/images', 'novo.jpg');
         echo 'Terminado!';
     }
 }
